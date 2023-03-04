@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+
+# entire program is inside a function so it can be called again via reset
 def program():
 
     #assign values to a, b, and c
@@ -23,9 +25,9 @@ def program():
     AOS = -(b)/(2 * a)
     if AOS % 2 == 1 or AOS % 2 == 0:
         AOS = int(AOS)
-    Y = a*AOS**2 + b*AOS + c
-    L = 1/(4*a)
-    F = str(AOS) + ", " + str(Y + L)
+    Y = a*AOS**2 + b*AOS + c  # Y is the y coordinate of the vertex
+    L = 1/(4*a)  # L is the distance from the vertex of the focus and directix
+    focus = str(AOS) + ", " + str(Y + L)  # F is the focus
     dscrm = b**2 - 4*a*c
     drctx = " y = " + str(Y - L)
     prdct = c * a
@@ -50,19 +52,16 @@ manual              reset
 exit              discrim
 directix      vertex form
 factor""")
-    #manual
-    print ("""
-Here is a list of commands that can be used in the program""")
+
     def ifs ():
 
-        #enter command
-        print("")
-        cmnd = input()
-        print("")
+        #enter command 
+        cmnd = input("> ")
+        
 
         #output of command
         if cmnd == "vertex":
-            print ('(' + str(AOS) + ',', str(Y) + ')')
+            print (f'({AOS}, {Y})')
             ifs()
 
         if cmnd == "aos":
@@ -74,22 +73,23 @@ Here is a list of commands that can be used in the program""")
             ifs()
             
         if cmnd == "zeros":
-            if dscrm >= 0 and math.sqrt(dscrm) % 2 == 1 or dscrm >=0 and  math.sqrt(dscrm) % 2 == 0:
-                print ("(" + str(-b) + " ± " + str(int(math.sqrt(dscrm))) + ")" + " / " + str(2*a))
+            # if discriminant is greater than or equal to zero and the square root of discriminant is a whole number
+            if dscrm >= 0 and math.sqrt(dscrm) % 2 == 1 or dscrm >=0 and math.sqrt(dscrm) % 2 == 0:   
+                print (f"({-b} ± {int(math.sqrt(dscrm))}) / {2*a}")
                 zero1 = (-b + int(math.sqrt(dscrm))) / (2*a)
                 zero2 = (-b - int(math.sqrt(dscrm))) / (2*a)
                 print (zero1, "and", zero2)
 
             else:
-                print ("(" + str(-b) + " ± √" + str(dscrm) + ")" + " / " + str(2*a))
+                print (f"({-b} ± √{dscrm}) / {2*a}")
                 if dscrm >= 0:
                     zero1 = (-b - math.sqrt(dscrm))/(2*a)
                     zero2 = (-b + math.sqrt(dscrm))/(2*a)
-                    print (str(zero1) + " and "  + str(zero2))
+                    print (zero1, "and", zero2)
             ifs()
 
         if cmnd == "focus":
-            print ("(" + F + ")")
+            print (f'({focus})')
             ifs()
 
         if cmnd == "graph":
@@ -104,7 +104,7 @@ Here is a list of commands that can be used in the program""")
             if AOS >= 0:
                 print ("y = (x -", AOS + ")^2 +", Y)
             else:
-                print ("y = (x + " + str(abs(AOS)) + ")^2 +", Y)
+                print ("y = (x +", abs(AOS) + ")^2 +", Y)
 
             ifs()
 
@@ -186,7 +186,8 @@ Here is a list of commands that can be used in the program""")
         else:
             print ("not a command")
             ifs()
-    
+        #manual
+    print ("Here is a list of commands that can be used in the program")
     manual()
     ifs()
     
